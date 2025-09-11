@@ -9,7 +9,7 @@
     }
 };
 const userauth = (req,res,next) =>{
-    const token = "abcggd"
+    const token = "abcd"
     if(token === "abcd"){
         next()
     }

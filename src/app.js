@@ -8,7 +8,18 @@ app.get("/admin/getadmindata",adminauth, (req,res)=>{
 res.send("all admin data sent")
 })
 app.get("/user",userauth,(req,res,next)=>{
-    res.send("user data fetched successsfully")
+    try {
+        throw new Error("error check")
+         res.send("user data fetched successsfully")
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+   
+})
+app.use("/",(err, req, res, next)=>{
+    if(err){
+        res.status(500).send("something went wrong")
+    }
 })
 const PORT = 3000
 app.listen(PORT,()=>{
