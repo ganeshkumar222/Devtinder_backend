@@ -1,25 +1,14 @@
 const express = require("express")
 const app = express()
-app.get("/user/:userID",(req,res)=>{
-    console.log(req.params)
-    res.send({
-        firstname : "Ganesh",
-        lastname: "kumar"
-    })
+const { adminauth, userauth}= require("./middlewares/auth")
+app.get("/admin/getalldata", adminauth,(req,res)=>{
+res.send("all data sent")
 })
-app.post("/user",(req,res)=>{
-    console.log(req.body)
-    console.log("save the data to the database")
-    res.send("user added suceesffully")
+app.get("/admin/getadmindata",adminauth, (req,res)=>{
+res.send("all admin data sent")
 })
-app.use("/test",(req,res)=>{
-    res.send("welcome to devtinder")
-})
-app.delete("/user",(req,res)=>{
-    res.send("user deleted successfully")
-})
-app.patch("/user",(req,res)=>{
-    res.send("user updated successfully")
+app.get("/user",userauth,(req,res,next)=>{
+    res.send("user data fetched successsfully")
 })
 const PORT = 3000
 app.listen(PORT,()=>{
